@@ -1,0 +1,15 @@
+---
+import Section from "../primitives/Section.astro";
+import ProjectCard from "./ProjectCard.astro";
+import { projects } from "../../data/projects";
+---
+
+<Section
+  id="work"
+  title="Selected work."
+  description="Highlights from recent frontend and platform work."
+>
+  <div class="space-y-6">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+</Section>

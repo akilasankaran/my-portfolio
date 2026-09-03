@@ -1,0 +1,46 @@
+---
+import Section from "../primitives/Section.astro";
+import Badge from "../primitives/Badge.astro";
+import { StaggerChildren, StaggerItem } from "../motion/StaggerChildren";
+import { experience } from "../../data/experience";
+---
+
+<Section
+  id="experience"
+  title="Experience."
+  description="Where I've worked and what I've built."
+>
+  <StaggerChildren client:visible as="ol" className="space-y-6 list-none p-0 m-0">
+    {
+      experience.map((item) => (
+        <StaggerItem as="li" className="glass rounded-xl p-6 md:p-8">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <div class="flex flex-wrap items-center gap-3">
+                <h3 class="text-xl font-semibold text-text-primary">{item.company}</h3>
+                {item.current && (
+                  <span class="rounded-full bg-accent-muted px-2.5 py-0.5 text-xs font-medium text-accent">
+                    Current
+                  </span>
+                )}
+              </div>
+              <p class="mt-1 text-text-secondary">
+                {item.role}
+                {item.location ? ` · ${item.location}` : ""}
+              </p>
+            </div>
+            <time class="shrink-0 font-mono text-sm text-text-tertiary" datetime={item.period}>
+              {item.period}
+            </time>
+          </div>
+          <p class="mt-5 leading-relaxed text-text-secondary">{item.summary}</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            {item.stack.map((tech) => (
+              <Badge>{tech}</Badge>
+            ))}
+          </div>
+        </StaggerItem>
+      ))
+    }
+  </StaggerChildren>
+</Section>

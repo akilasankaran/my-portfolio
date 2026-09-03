@@ -1,0 +1,12 @@
+---
+import { HeroContent } from "../motion/HeroContent";
+import { site } from "../../data/site";
+---
+
+<HeroContent
+  client:load
+  firstName={site.firstName}
+  name={site.name}
+  rolePhrases={site.rolePhrases}
+  resumeUrl={site.resumeUrl}
+/>

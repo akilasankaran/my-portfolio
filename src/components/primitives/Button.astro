@@ -1,0 +1,49 @@
+---
+interface Props {
+  href?: string;
+  variant?: "primary" | "secondary" | "ghost";
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  href = "#",
+  variant = "primary",
+  external = false,
+  class: className = "",
+} = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[0.98]";
+
+const variants = {
+  primary:
+    "bg-text-primary text-bg-base hover:bg-text-primary/90 focus-visible:ring-offset-bg-base",
+  secondary:
+    "border border-border-default bg-transparent text-text-primary hover:border-border-hover hover:bg-bg-subtle",
+  ghost: "text-text-secondary hover:text-text-primary",
+};
+
+const classes = [base, variants[variant], className];
+const Tag = href ? "a" : "button";
+---
+
+<Tag
+  href={href}
+  class:list={classes}
+  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+>
+  <slot />
+  {external && (
+    <svg
+      class="h-3.5 w-3.5 opacity-60 transition-transform duration-200 group-hover:translate-x-0.5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+    </svg>
+  )}
+</Tag>

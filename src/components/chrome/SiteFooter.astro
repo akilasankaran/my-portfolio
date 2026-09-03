@@ -1,0 +1,37 @@
+---
+import Container from "../primitives/Container.astro";
+import { site } from "../../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="pb-12 pt-8">
+  <Container>
+    <div class="mb-10 h-px w-full bg-border-default" />
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="font-mono text-xs text-text-tertiary">
+        © {year} {site.firstName}. Built with Astro & Tailwind.
+      </p>
+      <ul class="flex flex-wrap gap-6">
+        <li>
+          <a
+            href={site.social.linkedin}
+            class="text-sm text-text-secondary transition-colors hover:text-accent"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
+            href={`mailto:${site.email}`}
+            class="text-sm text-text-secondary transition-colors hover:text-accent"
+          >
+            Email
+          </a>
+        </li>
+      </ul>
+    </div>
+  </Container>
+</footer>

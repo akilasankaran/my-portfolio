@@ -1,0 +1,29 @@
+---
+import Section from "../primitives/Section.astro";
+import { FadeIn } from "../motion/FadeIn";
+import { site } from "../../data/site";
+---
+
+<Section id="contact" title="Let's build something together.">
+  <FadeIn client:visible>
+    <p class="max-w-xl text-base leading-relaxed text-text-secondary md:text-lg">
+      Got a role in mind or want to chat? I&apos;m open to lead and senior IC frontend opportunities.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href={`mailto:${site.email}`}
+        class="btn-gradient rounded-full px-8 py-3.5 text-sm font-semibold transition-all active:scale-[0.98]"
+      >
+        Say hello
+      </a>
+      <a
+        href={site.social.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="glass rounded-full px-6 py-3 text-sm font-medium text-text-secondary transition-all hover:border-accent/30 hover:text-text-primary"
+      >
+        LinkedIn
+      </a>
+    </div>
+  </FadeIn>
+</Section>
