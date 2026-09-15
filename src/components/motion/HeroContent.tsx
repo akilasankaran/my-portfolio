@@ -6,6 +6,7 @@ type HeroContentProps = {
   greeting: string;
   name: string;
   headline: string;
+  hook: string;
   intro: string;
   locationLine: string;
   ctaLabel: string;
@@ -13,6 +14,7 @@ type HeroContentProps = {
   resumeUrl: string;
   linkedin: string;
   github: string;
+  profilePhotoUrl?: string;
 };
 
 function renderIntro(intro: string) {
@@ -35,6 +37,7 @@ export function HeroContent({
   greeting,
   name,
   headline,
+  hook,
   intro,
   locationLine,
   ctaLabel,
@@ -42,10 +45,11 @@ export function HeroContent({
   resumeUrl,
   linkedin,
   github,
+  profilePhotoUrl,
 }: HeroContentProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true });
-  const staticPositioning = `${greeting} ${name}. ${headline}. ${intro.replace(/\*\*/g, "")} ${locationLine}`;
+  const staticPositioning = `${greeting} ${name}. ${headline}. ${hook} ${intro.replace(/\*\*/g, "")} ${locationLine}`;
 
   return (
     <section
@@ -56,10 +60,23 @@ export function HeroContent({
       <div className="relative z-10 w-full max-w-3xl">
         <p className="sr-only">{staticPositioning}</p>
 
+        {profilePhotoUrl ? (
+          <motion.img
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            src={profilePhotoUrl}
+            alt={name}
+            width={80}
+            height={80}
+            className="mb-5 h-[72px] w-[72px] rounded-full border border-border-default bg-white object-cover object-[center_15%] shadow-sm md:mb-6 md:h-20 md:w-20"
+          />
+        ) : null}
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="mb-3 text-lg text-text-secondary md:text-xl"
         >
           {greeting}
@@ -86,8 +103,17 @@ export function HeroContent({
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 text-base leading-relaxed text-text-secondary md:text-lg"
+          transition={{ duration: 0.8, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-4 font-heading text-lg font-medium leading-snug text-text-primary md:text-xl"
+        >
+          {hook}
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-4 text-base leading-relaxed text-text-secondary md:text-lg"
         >
           {renderIntro(intro)}
         </motion.p>
@@ -95,7 +121,7 @@ export function HeroContent({
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.44, ease: [0.22, 1, 0.36, 1] }}
           className="mt-6 font-mono text-sm text-text-tertiary"
         >
           {locationLine}
@@ -104,7 +130,7 @@ export function HeroContent({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-center"
         >
           <a

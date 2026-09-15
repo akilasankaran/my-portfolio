@@ -1,0 +1,17 @@
+---
+import Section from "../primitives/Section.astro";
+import { site } from "../../data/site";
+---
+
+<Section
+  id="education"
+  title="Education."
+  label={site.education.degree}
+  headerClass="mb-4 md:mb-5"
+  class="py-16 md:py-20"
+>
+  <div class="max-w-xl">
+    <p class="text-text-secondary">{site.education.institution}</p>
+    <p class="mt-2 font-mono text-sm text-text-tertiary">{site.education.year}</p>
+  </div>
+</Section>

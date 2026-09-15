@@ -4,11 +4,13 @@ import Container from "./Container.astro";
 interface Props {
   id: string;
   title: string;
+  label?: string;
   description?: string;
   class?: string;
+  headerClass?: string;
 }
 
-const { id, title, description, class: className = "" } = Astro.props;
+const { id, title, label, description, class: className = "", headerClass = "" } = Astro.props;
 ---
 
 <section
@@ -17,18 +19,32 @@ const { id, title, description, class: className = "" } = Astro.props;
   aria-labelledby={`${id}-heading`}
 >
   <Container>
-    <header class="mb-12 md:mb-16">
+    <header class:list={[headerClass || "mb-12 md:mb-16"]}>
       <h2
         id={`${id}-heading`}
         class="font-heading text-balance text-2xl font-semibold tracking-tight text-text-primary md:text-3xl"
       >
         {title}
       </h2>
-      {description && (
-        <p class="mt-3 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg">
-          {description}
-        </p>
-      )}
+      {
+        label && (
+          <p class="mt-2 max-w-2xl text-base font-medium leading-relaxed text-text-secondary md:text-lg">
+            {label}
+          </p>
+        )
+      }
+      {
+        description && (
+          <p
+            class:list={[
+              "max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg",
+              label ? "mt-2" : "mt-3",
+            ]}
+          >
+            {description}
+          </p>
+        )
+      }
     </header>
     <slot />
   </Container>

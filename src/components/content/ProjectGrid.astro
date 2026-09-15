@@ -6,10 +6,10 @@ import { workProjects } from "../../data/projects";
 
 <Section
   id="work"
-  title="Selected work."
+  title="Engineering in Practice."
   description="Production systems, architecture decisions, and measurable impact."
 >
-  <div class="grid gap-6 md:grid-cols-2">
+  <div class="grid gap-6 md:grid-cols-2 md:gap-8">
     {workProjects.map((project) => <ProjectCard project={project} />)}
   </div>
 </Section>

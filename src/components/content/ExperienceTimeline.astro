@@ -6,13 +6,11 @@ import { site } from "../../data/site";
 ---
 
 <Section id="experience" title="Experience." description="Where I've worked and what I've built.">
-  <StaggerChildren client:visible as="ol" className="space-y-6 list-none p-0 m-0">
+  <StaggerChildren client:visible as="ol" className="list-none p-0 m-0">
     <StaggerItem as="li" className="glass rounded-xl p-6 md:p-8">
-      <div class="mb-6 flex flex-wrap items-center gap-3">
-        <h3 class="text-xl font-semibold text-text-primary">{experienceCompany}</h3>
-      </div>
+      <h3 class="text-xl font-semibold text-text-primary">{experienceCompany}</h3>
 
-      <ol class="space-y-6 border-l border-border-default pl-6">
+      <ol class="mt-6 space-y-6 border-l border-border-default pl-6">
         {
           experienceRoles.map((item) => (
             <li class="relative">
@@ -44,7 +42,7 @@ import { site } from "../../data/site";
     </StaggerItem>
   </StaggerChildren>
 
-  <p class="mt-10">
+  <p class="mt-8">
     <a
       href={site.resumeUrl}
       target="_blank"

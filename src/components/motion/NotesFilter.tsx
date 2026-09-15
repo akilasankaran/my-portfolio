@@ -61,26 +61,28 @@ export function NotesFilter({ notes }: NotesFilterProps) {
               <h3 className="font-heading text-lg font-semibold text-text-primary">{note.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary">{note.description}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {note.categories.map((category) => (
+                {note.tags.map((tag) => (
                   <span
-                    key={category}
+                    key={tag}
                     className="inline-flex items-center rounded-md border border-border-default bg-bg-subtle px-2.5 py-1 font-mono text-xs text-text-tertiary"
                   >
-                    {category}
+                    {tag}
                   </span>
                 ))}
               </div>
             </>
           );
 
-          if (note.url) {
+          const cardClassName = "glass block rounded-xl p-6 transition-colors duration-300 hover:border-accent/25";
+
+          if (note.linkedinUrl) {
             return (
               <a
                 key={note.title}
-                href={note.url}
+                href={note.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass block rounded-xl p-6 transition-colors duration-300 hover:border-accent/25"
+                className={cardClassName}
               >
                 {content}
               </a>
@@ -88,7 +90,7 @@ export function NotesFilter({ notes }: NotesFilterProps) {
           }
 
           return (
-            <article key={note.title} className="glass rounded-xl p-6">
+            <article key={note.title} className={cardClassName}>
               {content}
             </article>
           );

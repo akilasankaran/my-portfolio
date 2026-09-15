@@ -1,34 +1,36 @@
 ---
 import Section from "../primitives/Section.astro";
 import { NotesFilter } from "../motion/NotesFilter";
-import { engineeringNotes } from "../../data/engineeringNotes";
+import {
+  engineeringNotes,
+  engineeringNotesDescription,
+  engineeringNotesLabel,
+} from "../../data/engineeringNotes";
 import { site } from "../../data/site";
 ---
 
 <Section
   id="notes"
   title="Engineering notes."
-  description="Full-Stack Engineering"
+  label={engineeringNotesLabel}
+  description={engineeringNotesDescription}
 >
-  <p class="mb-8 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg">
-    Notes on APIs, databases, distributed systems, reliability, caching, messaging, backend
-    architecture, and the engineering decisions behind scalable applications.
-  </p>
-
   <NotesFilter client:visible notes={engineeringNotes} />
 
-  {
-    site.linkedinNotesSeriesUrl ? (
-      <p class="mt-10">
+  <p class="mt-10">
+    {
+      site.linkedinNotesSeriesUrl ? (
         <a
           href={site.linkedinNotesSeriesUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="text-sm font-medium text-accent transition-colors hover:text-accent-pink"
         >
-          Explore all 30 on LinkedIn →
+          Explore all on LinkedIn →
         </a>
-      </p>
-    ) : null
-  }
+      ) : (
+        <span class="text-sm font-medium text-text-tertiary">Explore all on LinkedIn →</span>
+      )
+    }
+  </p>
 </Section>

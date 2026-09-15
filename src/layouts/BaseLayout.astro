@@ -23,6 +23,7 @@ const personSchema = {
   description: site.description,
   email: `mailto:${site.email}`,
   url: Astro.site?.href ?? undefined,
+  image: site.profilePhotoUrl ? new URL(site.profilePhotoUrl, Astro.site ?? Astro.url).href : undefined,
   sameAs: [site.social.linkedin, site.social.github],
 };
 ---

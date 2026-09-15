@@ -1,15 +1,16 @@
 export type WorkProject = {
   title: string;
+  context: string;
   challenge: string;
   built: string;
   stack: string[];
   impact?: string | string[];
-  status?: "In development";
 };
 
 export const workProjects: WorkProject[] = [
   {
     title: "Real-Time Ticketing",
+    context: "Freshworks · Enterprise Production System",
     challenge:
       "Keep ticket updates synchronized for support agents without requiring constant refreshes.",
     built:
@@ -18,25 +19,16 @@ export const workProjects: WorkProject[] = [
     impact: "33% lower update latency",
   },
   {
-    title: "Cross-Tab WebSocket Architecture",
-    challenge:
-      "Multiple browser tabs created redundant socket connections and unnecessary heartbeat and memory overhead.",
+    title: "Device42 × Freshservice",
+    context: "Freshworks · Enterprise Integration · In Development",
+    challenge: "",
     built:
-      "Optimized WebSocket connection management to reuse connections across tabs and reduce redundant real-time infrastructure.",
-    stack: ["WebSockets", "Browser APIs", "Performance"],
-    impact: ["~80% fewer redundant connections", "60–70% lower socket-related overhead"],
-  },
-  {
-    title: "Legacy React Modernization",
-    challenge:
-      "Modernize a 72K-line legacy React module while keeping it compatible with an existing Ember application.",
-    built:
-      "Migrated the legacy class-component application toward modular functional components and packaged it as a Web Component for integration with Ember.",
-    stack: ["React", "Web Components", "Ember", "Frontend Architecture"],
-    impact: "~30% lower maintenance effort",
+      "Building the Device42 integration for Freshservice's Inventory Workflow Automator, bringing inventory data into automated IT asset-management workflows.",
+    stack: ["Freshservice", "Device42", "Workflow Automation", "APIs"],
   },
   {
     title: "AI-Assisted Incident Resolution",
+    context: "Freshworks · Production Automation",
     challenge:
       "Production incidents required repetitive investigation and significant L2 engineering effort.",
     built:
@@ -46,6 +38,7 @@ export const workProjects: WorkProject[] = [
   },
   {
     title: "Telephony Integration Platform",
+    context: "Freshworks · Enterprise Integration Platform",
     challenge: "",
     built:
       "Architected and scaled a shared marketplace experience integrating five telephony providers and supporting 400+ businesses.",
@@ -53,11 +46,23 @@ export const workProjects: WorkProject[] = [
     impact: "45% lower integration time",
   },
   {
-    title: "Device42 × Freshservice",
-    challenge: "",
+    title: "Cross-Tab WebSocket Architecture",
+    context: "Freshworks · Production Architecture",
+    challenge:
+      "Multiple browser tabs created redundant socket connections and unnecessary heartbeat and memory overhead.",
     built:
-      "Building the Device42 integration for Freshservice's Inventory Workflow Automator, bringing inventory data into automated IT asset-management workflows.",
-    stack: ["Freshservice", "Device42", "Workflow Automation", "APIs"],
-    status: "In development",
+      "Optimized WebSocket connection management to reuse connections across tabs and reduce redundant real-time infrastructure.",
+    stack: ["WebSockets", "Browser APIs", "Performance"],
+    impact: ["~80% fewer redundant connections", "60-70% lower socket-related overhead"],
+  },
+  {
+    title: "Legacy React Modernization",
+    context: "Freshworks · Enterprise Production System",
+    challenge:
+      "Modernize a 72K-line legacy React module while keeping it compatible with an existing Ember application.",
+    built:
+      "Migrated the legacy class-component application toward modular functional components and packaged it as a Web Component for integration with Ember.",
+    stack: ["React", "Web Components", "Ember", "Frontend Architecture"],
+    impact: "~30% lower maintenance effort",
   },
 ];
