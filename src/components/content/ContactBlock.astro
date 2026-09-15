@@ -1,29 +1,23 @@
 ---
 import Section from "../primitives/Section.astro";
 import { FadeIn } from "../motion/FadeIn";
+import { SocialIconLinks } from "../motion/SocialIconLinks";
 import { site } from "../../data/site";
 ---
 
-<Section id="contact" title="Let's build something together.">
+<Section id="contact" title={site.contactHeading}>
   <FadeIn client:visible>
     <p class="max-w-xl text-base leading-relaxed text-text-secondary md:text-lg">
-      Got a role in mind or want to chat? I&apos;m open to lead and senior IC frontend opportunities.
+      {site.contactCopy}
     </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a
-        href={`mailto:${site.email}`}
-        class="btn-gradient rounded-full px-8 py-3.5 text-sm font-semibold transition-all active:scale-[0.98]"
-      >
-        Say hello
-      </a>
-      <a
-        href={site.social.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="glass rounded-full px-6 py-3 text-sm font-medium text-text-secondary transition-all hover:border-accent/30 hover:text-text-primary"
-      >
-        LinkedIn
-      </a>
-    </div>
+    <SocialIconLinks
+      client:visible
+      email={site.email}
+      resumeUrl={site.resumeUrl}
+      linkedin={site.social.linkedin}
+      github={site.social.github}
+      className="mt-8"
+    />
+    <p class="mt-6 text-sm font-medium text-text-secondary">Open to relocation.</p>
   </FadeIn>
 </Section>

@@ -1,46 +1,57 @@
 ---
 import Section from "../primitives/Section.astro";
-import Badge from "../primitives/Badge.astro";
 import { StaggerChildren, StaggerItem } from "../motion/StaggerChildren";
-import { experience } from "../../data/experience";
+import { experienceCompany, experienceRoles } from "../../data/experience";
+import { site } from "../../data/site";
 ---
 
-<Section
-  id="experience"
-  title="Experience."
-  description="Where I've worked and what I've built."
->
+<Section id="experience" title="Experience." description="Where I've worked and what I've built.">
   <StaggerChildren client:visible as="ol" className="space-y-6 list-none p-0 m-0">
-    {
-      experience.map((item) => (
-        <StaggerItem as="li" className="glass rounded-xl p-6 md:p-8">
-          <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <div class="flex flex-wrap items-center gap-3">
-                <h3 class="text-xl font-semibold text-text-primary">{item.company}</h3>
-                {item.current && (
-                  <span class="rounded-full bg-accent-muted px-2.5 py-0.5 text-xs font-medium text-accent">
-                    Current
-                  </span>
-                )}
+    <StaggerItem as="li" className="glass rounded-xl p-6 md:p-8">
+      <div class="mb-6 flex flex-wrap items-center gap-3">
+        <h3 class="text-xl font-semibold text-text-primary">{experienceCompany}</h3>
+      </div>
+
+      <ol class="space-y-6 border-l border-border-default pl-6">
+        {
+          experienceRoles.map((item) => (
+            <li class="relative">
+              <span
+                class:list={[
+                  "absolute -left-[calc(1.5rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full",
+                  item.current ? "bg-accent" : "bg-border-default",
+                ]}
+                aria-hidden="true"
+              />
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <h4 class="font-medium text-text-primary">{item.role}</h4>
+                    {item.current && (
+                      <span class="rounded-full bg-accent-muted px-2.5 py-0.5 text-xs font-medium text-accent">
+                        Current
+                      </span>
+                    )}
+                  </div>
+                  <p class="mt-2 text-sm leading-relaxed text-text-secondary">{item.areas}</p>
+                </div>
+                <time class="shrink-0 font-mono text-sm text-text-tertiary">{item.period}</time>
               </div>
-              <p class="mt-1 text-text-secondary">
-                {item.role}
-                {item.location ? ` · ${item.location}` : ""}
-              </p>
-            </div>
-            <time class="shrink-0 font-mono text-sm text-text-tertiary" datetime={item.period}>
-              {item.period}
-            </time>
-          </div>
-          <p class="mt-5 leading-relaxed text-text-secondary">{item.summary}</p>
-          <div class="mt-6 flex flex-wrap gap-2">
-            {item.stack.map((tech) => (
-              <Badge>{tech}</Badge>
-            ))}
-          </div>
-        </StaggerItem>
-      ))
-    }
+            </li>
+          ))
+        }
+      </ol>
+    </StaggerItem>
   </StaggerChildren>
+
+  <p class="mt-10">
+    <a
+      href={site.resumeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-medium text-accent transition-colors hover:text-accent-pink"
+    >
+      View detailed resume →
+    </a>
+  </p>
 </Section>

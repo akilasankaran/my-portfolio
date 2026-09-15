@@ -29,11 +29,11 @@ npm run preview
 
 Edit content in `src/data/`:
 
-- `site.ts` — name, contact, hero metrics
-- `experience.ts` — work history
-- `projects.ts` — case studies
-- `strengths.ts` — technical strengths
-- `writing.ts` — articles and notes
+- `site.ts`: name, contact, hero metrics
+- `experience.ts`: work history
+- `projects.ts`: case studies
+- `strengths.ts`: technical strengths
+- `writing.ts`: articles and notes
 
 ## Structure
 

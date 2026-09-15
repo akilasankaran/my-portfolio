@@ -14,6 +14,17 @@ const {
   title = `${site.name} | ${site.role}`,
   description = site.description,
 } = Astro.props;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: site.heroHeadline,
+  description: site.description,
+  email: `mailto:${site.email}`,
+  url: Astro.site?.href ?? undefined,
+  sameAs: [site.social.linkedin, site.social.github],
+};
 ---
 
 <!doctype html>
@@ -22,6 +33,14 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <meta name="keywords" content={site.metaKeywords.join(", ")} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="theme-color" content="#fafbff" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,6 +49,7 @@ const {
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <title>{title}</title>
   </head>
   <body class="min-h-screen">

@@ -13,8 +13,8 @@ export const techStack: StackGroup[] = [
     items: ["Micro-frontends", "Monorepos", "Design Systems", "Web Components"],
   },
   {
-    category: "Backend & APIs",
-    items: ["Node.js", "Python", "GraphQL", "REST", "WebSockets", "MongoDB"],
+    category: "Backend & Integration",
+    items: ["REST APIs", "GraphQL", "WebSockets", "Node.js", "Python", "MongoDB"],
   },
   {
     category: "Cloud & DevOps",

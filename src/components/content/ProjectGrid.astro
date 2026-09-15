@@ -1,15 +1,15 @@
 ---
 import Section from "../primitives/Section.astro";
 import ProjectCard from "./ProjectCard.astro";
-import { projects } from "../../data/projects";
+import { workProjects } from "../../data/projects";
 ---
 
 <Section
   id="work"
   title="Selected work."
-  description="Highlights from recent frontend and platform work."
+  description="Production systems, architecture decisions, and measurable impact."
 >
-  <div class="space-y-6">
-    {projects.map((project) => <ProjectCard project={project} />)}
+  <div class="grid gap-6 md:grid-cols-2">
+    {workProjects.map((project) => <ProjectCard project={project} />)}
   </div>
 </Section>

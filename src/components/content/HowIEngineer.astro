@@ -1,0 +1,17 @@
+---
+import Section from "../primitives/Section.astro";
+import { howIEngineerCards } from "../../data/howIEngineer";
+---
+
+<Section id="engineering" title="How I engineer.">
+  <div class="grid gap-6 md:grid-cols-3">
+    {
+      howIEngineerCards.map((card) => (
+        <article class="glass rounded-xl p-6 md:p-8">
+          <h3 class="font-heading text-lg font-semibold text-text-primary">{card.title}</h3>
+          <p class="mt-4 text-sm leading-relaxed text-text-secondary md:text-base">{card.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</Section>

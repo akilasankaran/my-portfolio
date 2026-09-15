@@ -2,13 +2,33 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "../../data/site";
 
-const sections = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "work", label: "Work" },
-  { id: "contact", label: "Contact" },
-] as const;
+type AnchorNavItem = {
+  type: "anchor";
+  id: string;
+  label: string;
+};
+
+type ExternalNavItem = {
+  type: "external";
+  href: string;
+  label: string;
+};
+
+type NavItem = AnchorNavItem | ExternalNavItem;
+
+const navItems: NavItem[] = [
+  { type: "anchor", id: "hero", label: "Home" },
+  { type: "anchor", id: "work", label: "Work" },
+  { type: "anchor", id: "notes", label: "Notes" },
+  { type: "anchor", id: "experience", label: "Experience" },
+  { type: "anchor", id: "about", label: "About" },
+  { type: "external", href: site.resumeUrl, label: "Resume" },
+  { type: "anchor", id: "contact", label: "Contact" },
+];
+
+const anchorSections = navItems.filter(
+  (item): item is AnchorNavItem => item.type === "anchor",
+);
 
 function cn(...classes: Array<string | false | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -24,10 +44,10 @@ export function FluidNav() {
       setScrolled(window.scrollY > 50);
       const scrollPos = window.scrollY + window.innerHeight / 3;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i].id);
+      for (let i = anchorSections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(anchorSections[i].id);
         if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i].id);
+          setActiveSection(anchorSections[i].id);
           break;
         }
       }
@@ -50,6 +70,89 @@ export function FluidNav() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const renderDesktopNavItem = (item: NavItem) => {
+    if (item.type === "external") {
+      return (
+        <a
+          key={item.label}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium text-text-tertiary transition-colors duration-300 hover:text-text-secondary md:px-4"
+        >
+          {item.label}
+        </a>
+      );
+    }
+
+    const isActive = activeSection === item.id;
+    return (
+      <button
+        key={item.id}
+        type="button"
+        onClick={() => scrollToSection(item.id)}
+        className={cn(
+          "relative cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300 md:px-4",
+          isActive ? "text-text-primary" : "text-text-tertiary hover:text-text-secondary",
+        )}
+      >
+        {isActive && (
+          <motion.div
+            layoutId="nav-pill"
+            className="absolute inset-0 rounded-full bg-accent-muted"
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          />
+        )}
+        {isActive && (
+          <motion.div
+            layoutId="nav-glow"
+            className="absolute inset-0 -z-10 rounded-full bg-accent/10 blur-md"
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          />
+        )}
+        <span className="relative z-10">{item.label}</span>
+      </button>
+    );
+  };
+
+  const renderMobileNavItem = (item: NavItem, index: number) => {
+    if (item.type === "external") {
+      return (
+        <motion.a
+          key={item.label}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.05 + 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="font-heading text-4xl font-bold tracking-tight text-text-primary transition-colors duration-300 hover:text-accent/80 sm:text-5xl"
+        >
+          {item.label}
+        </motion.a>
+      );
+    }
+
+    const isActive = activeSection === item.id;
+    return (
+      <motion.button
+        key={item.id}
+        type="button"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.05 + 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        onClick={() => scrollToSection(item.id)}
+        className={cn(
+          "font-heading text-4xl font-bold tracking-tight transition-colors duration-300 sm:text-5xl",
+          isActive ? "text-accent" : "text-text-primary hover:text-accent/80",
+        )}
+      >
+        {item.label}
+      </motion.button>
+    );
+  };
+
   return (
     <>
       <motion.nav
@@ -65,10 +168,9 @@ export function FluidNav() {
           <button
             type="button"
             onClick={() => scrollToSection("hero")}
-            className="cursor-pointer font-heading text-xl font-bold tracking-tight text-text-primary transition-colors duration-300 hover:text-accent"
+            className="cursor-pointer text-left font-heading text-sm font-bold leading-tight tracking-tight text-text-primary transition-colors duration-300 hover:text-accent sm:text-base md:text-lg"
           >
-            {site.firstName}
-            <span className="text-accent">.</span>
+            {site.name}
           </button>
         </div>
 
@@ -92,36 +194,7 @@ export function FluidNav() {
         </div>
 
         <div className="glass pointer-events-auto hidden items-center gap-0.5 rounded-full px-1.5 py-1.5 md:flex">
-          {sections.map((section) => {
-            const isActive = activeSection === section.id;
-            return (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => scrollToSection(section.id)}
-                className={cn(
-                  "relative cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300 md:px-4",
-                  isActive ? "text-text-primary" : "text-text-tertiary hover:text-text-secondary",
-                )}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-accent-muted"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-glow"
-                    className="absolute inset-0 -z-10 rounded-full bg-accent/10 blur-md"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{section.label}</span>
-              </button>
-            );
-          })}
+          {navItems.map((item) => renderDesktopNavItem(item))}
 
           <div className="mx-1 h-5 w-px bg-border-default" />
 
@@ -170,26 +243,8 @@ export function FluidNav() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="pointer-events-auto fixed inset-0 z-40 flex flex-col items-center justify-center bg-white/90 backdrop-blur-2xl"
           >
-            <div className="flex w-full flex-col items-center gap-8 px-6">
-              {sections.map((section, i) => {
-                const isActive = activeSection === section.id;
-                return (
-                  <motion.button
-                    key={section.id}
-                    type="button"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 + 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    onClick={() => scrollToSection(section.id)}
-                    className={cn(
-                      "font-heading text-4xl font-bold tracking-tight transition-colors duration-300 sm:text-5xl",
-                      isActive ? "text-accent" : "text-text-primary hover:text-accent/80",
-                    )}
-                  >
-                    {section.label}
-                  </motion.button>
-                );
-              })}
+            <div className="flex w-full flex-col items-center gap-6 px-6 sm:gap-8">
+              {navItems.map((item, index) => renderMobileNavItem(item, index))}
             </div>
           </motion.div>
         )}

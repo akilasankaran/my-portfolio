@@ -1,0 +1,61 @@
+---
+import Section from "../primitives/Section.astro";
+import Badge from "../primitives/Badge.astro";
+import ImpactHighlight from "../primitives/ImpactHighlight.astro";
+import { outsideWork } from "../../data/outsideWork";
+import { formatImpact } from "../../utils/formatImpact";
+
+const impact = formatImpact(outsideWork.impact);
+---
+
+<Section id="outside" title="Built outside work." description={outsideWork.subtitle}>
+  <div class="grid gap-8 lg:grid-cols-[1fr_320px] lg:gap-12">
+    <div>
+      <h3 class="font-heading text-xl font-semibold text-text-primary md:text-2xl">
+        {outsideWork.title}
+      </h3>
+
+      <ImpactHighlight value={impact.value} label={impact.label} />
+
+      <p class="max-w-2xl leading-relaxed text-text-secondary">{outsideWork.description}</p>
+
+      <div class="mt-6 flex flex-wrap gap-4">
+        <a
+          href={outsideWork.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-medium text-accent transition-colors hover:text-accent-pink"
+        >
+          Live demo ↗
+        </a>
+        <a
+          href={outsideWork.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-medium text-accent transition-colors hover:text-accent-pink"
+        >
+          GitHub ↗
+        </a>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-2">
+        {outsideWork.stack.map((tech) => (
+          <Badge class="text-text-tertiary">{tech}</Badge>
+        ))}
+      </div>
+    </div>
+
+    {
+      outsideWork.screenshotUrl && (
+        <div class="glass overflow-hidden rounded-xl">
+          <img
+            src={outsideWork.screenshotUrl}
+            alt={`Screenshot of ${outsideWork.title}`}
+            class="h-auto w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      )
+    }
+  </div>
+</Section>

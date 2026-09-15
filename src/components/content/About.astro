@@ -1,56 +1,30 @@
 ---
 import Section from "../primitives/Section.astro";
-import Badge from "../primitives/Badge.astro";
+import SkillsSection from "./SkillsSection.astro";
 import { site } from "../../data/site";
-import { techStack } from "../../data/stack";
+import { currentlyExploring } from "../../data/skills";
 ---
 
-<Section
-  id="about"
-  title="About."
-  description="A bit about who I am and what I work with."
->
-  <div class="grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-16">
-    <div class="space-y-5 text-base leading-relaxed text-text-secondary md:text-lg">
-      {site.journey.map((paragraph) => <p>{paragraph}</p>)}
-    </div>
-
-    <aside class="space-y-8">
-      <div class="glass rounded-xl p-6">
-        <p class="font-heading text-3xl font-semibold tabular-nums text-text-primary">
-          {site.yearsExperience}
-        </p>
-        <p class="mt-1 text-sm text-text-tertiary">Years of experience</p>
-      </div>
-      <div class="text-sm text-text-secondary">
-        <p class="font-medium text-text-primary">{site.location}</p>
-        <p class="mt-1 text-text-tertiary">{site.availability}</p>
-      </div>
-    </aside>
+<Section id="about" title="Beyond the Code.">
+  <div class="max-w-3xl space-y-5 text-base leading-relaxed text-text-secondary md:text-lg">
+    {site.aboutParagraphs.map((paragraph) => <p>{paragraph}</p>)}
   </div>
 
-  <p class="mt-10 text-sm text-text-tertiary md:text-base">{site.education}</p>
+  <SkillsSection />
 
-  <div class="mt-14">
-    <h3 class="mb-6 text-sm font-medium uppercase tracking-wider text-text-tertiary">Tech stack</h3>
-    <div class="grid gap-6 sm:grid-cols-2">
+  <div class="mt-16">
+    <h3 class="font-heading text-xl font-semibold text-text-primary">Currently exploring</h3>
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
       {
-        techStack.map((group) => (
-          <div class="glass rounded-xl p-5 md:p-6">
-            <div class="mb-4 flex items-baseline justify-between gap-2">
-              <h4 class="font-medium text-text-primary">{group.category}</h4>
-              <span class="font-mono text-xs text-text-tertiary">
-                {String(group.items.length).padStart(2, "0")}
-              </span>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <Badge>{item}</Badge>
-              ))}
-            </div>
+        currentlyExploring.map((item) => (
+          <div class="rounded-xl border border-border-default/60 bg-bg-subtle/50 p-5">
+            <p class="font-medium text-text-primary">{item.title}</p>
+            <p class="mt-2 text-sm leading-relaxed text-text-tertiary">{item.text}</p>
           </div>
         ))
       }
     </div>
   </div>
+
+  <p class="mt-12 text-sm text-text-tertiary">{site.education}</p>
 </Section>

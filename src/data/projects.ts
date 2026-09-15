@@ -1,42 +1,63 @@
-export type Project = {
-  slug: string;
+export type WorkProject = {
   title: string;
-  summary: string;
+  challenge: string;
+  built: string;
   stack: string[];
-  href?: string;
+  impact?: string | string[];
+  status?: "In development";
 };
 
-export const projects: Project[] = [
+export const workProjects: WorkProject[] = [
   {
-    slug: "realtime-ticket-mfe",
-    title: "Real-Time Ticket Micro-Frontend",
-    summary:
-      "React and TypeScript micro-frontend with WebSockets and client-side state management. Supports live ticket updates, advanced filtering, and complex UI states, with 33% lower update latency across high-volume support workflows.",
-    stack: ["React", "TypeScript", "WebSockets", "State Management", "Micro-frontends"],
-    href: "#",
+    title: "Real-Time Ticketing",
+    challenge:
+      "Keep ticket updates synchronized for support agents without requiring constant refreshes.",
+    built:
+      "Architected a real-time React micro-frontend with WebSocket-powered updates, advanced filtering, and complex UI-state handling.",
+    stack: ["React", "TypeScript", "WebSockets", "Micro-frontends"],
+    impact: "33% lower update latency",
   },
   {
-    slug: "device42-freshservice",
-    title: "Device42 Integration (Freshservice)",
-    summary:
-      "Building the Device42 integration for Freshservice's Inventory Workflow Automator, connecting inventory data into automated IT asset management workflows for enterprise IT teams.",
-    stack: ["React", "TypeScript", "REST APIs", "Node.js", "ITSM"],
-    href: "#",
+    title: "Cross-Tab WebSocket Architecture",
+    challenge:
+      "Multiple browser tabs created redundant socket connections and unnecessary heartbeat and memory overhead.",
+    built:
+      "Optimized WebSocket connection management to reuse connections across tabs and reduce redundant real-time infrastructure.",
+    stack: ["WebSockets", "Browser APIs", "Performance"],
+    impact: ["~80% fewer redundant connections", "60–70% lower socket-related overhead"],
   },
   {
-    slug: "ai-incident-resolution",
+    title: "Legacy React Modernization",
+    challenge:
+      "Modernize a 72K-line legacy React module while keeping it compatible with an existing Ember application.",
+    built:
+      "Migrated the legacy class-component application toward modular functional components and packaged it as a Web Component for integration with Ember.",
+    stack: ["React", "Web Components", "Ember", "Frontend Architecture"],
+    impact: "~30% lower maintenance effort",
+  },
+  {
     title: "AI-Assisted Incident Resolution",
-    summary:
-      "Workflow integrating Sentry, OpenAI APIs, and GitHub automation to analyze production errors, reducing L2 support tickets by 20% and accelerating debugging and root-cause analysis.",
-    stack: ["Sentry", "OpenAI", "GitHub Actions", "Node.js", "TypeScript"],
-    href: "#",
+    challenge:
+      "Production incidents required repetitive investigation and significant L2 engineering effort.",
+    built:
+      "Created an AI-assisted workflow connecting Sentry, OpenAI APIs, and GitHub automation to accelerate incident analysis and remediation.",
+    stack: ["OpenAI APIs", "Sentry", "GitHub Automation"],
+    impact: "20% fewer L2 support tickets",
   },
   {
-    slug: "whatsapp-omnichannel",
-    title: "WhatsApp Business API",
-    summary:
-      "Omnichannel integration for Freshdesk's support platform. Customers reach agents on WhatsApp, with a 12% improvement in ticket resolution efficiency within two months of launch.",
-    stack: ["React", "TypeScript", "REST APIs", "Omnichannel"],
-    href: "#",
+    title: "Telephony Integration Platform",
+    challenge: "",
+    built:
+      "Architected and scaled a shared marketplace experience integrating five telephony providers and supporting 400+ businesses.",
+    stack: ["React", "APIs", "Integrations", "Platform Engineering"],
+    impact: "45% lower integration time",
+  },
+  {
+    title: "Device42 × Freshservice",
+    challenge: "",
+    built:
+      "Building the Device42 integration for Freshservice's Inventory Workflow Automator, bringing inventory data into automated IT asset-management workflows.",
+    stack: ["Freshservice", "Device42", "Workflow Automation", "APIs"],
+    status: "In development",
   },
 ];
